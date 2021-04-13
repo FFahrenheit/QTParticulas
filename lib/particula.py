@@ -1,0 +1,25 @@
+from lib.algoritmos import distancia_euclidiana 
+
+class Particula:
+    def __init__(self, id : int = 0, 
+                    origen_x : int = 0, origen_y : int = 0,
+                    destino_x : int = 0, destino_y : int = 0,
+                    velocidad : int = 0 ,
+                    red :int = 0, green :int = 0, blue : int = 0):
+        self.__id = id
+        self.__origen_x = origen_x
+        self.__origen_y = origen_y
+        self.__destino_x = destino_x
+        self.__destino_y = destino_y
+        self.__velocidad = velocidad
+        self.__red = red 
+        self.__green = green
+        self.__blue = blue
+        self.__distancia =  distancia_euclidiana(self.__origen_x, self.__origen_y, self.__destino_x, self.__destino_y)
+
+    def __str__(self):
+        return (
+            f"Id: { self.__id }\nOrigen: { self.__origen_x },{ self.__origen_y}\n" + 
+            f"Destino: { self.__destino_x},{ self.__destino_y}\nVelocidad: { self.__velocidad }\n" +
+            f"Distancia: {self.__distancia}\nColor: rgb({ self.__red },{ self.__green },{ self.__blue })\n"
+        )
