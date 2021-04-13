@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import QMainWindow
+from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox
 from PySide2.QtCore import Slot
 from ui_mainwindow import Ui_MainWindow
 from lib.cern import CERN
@@ -16,6 +16,56 @@ class MainWindow(QMainWindow):
         self.ui.agregar_inicio_button.clicked.connect(self.agregar_inicio)
         self.ui.agregar_final_button.clicked.connect(self.agregar_fin)
         self.ui.mostrar_button.clicked.connect(self.mostrar)
+
+        self.ui.actionAbrir.triggered.connect(self.abrir_archivo)
+        self.ui.actionGuardar.triggered.connect(self.guardar_archivo)
+
+    @Slot()
+    def abrir_archivo(self):
+        ubicacion = QFileDialog.getOpenFileName(
+            self,
+            'Abrir archivo',
+            '.',
+            'JSON (*.json)'
+        )[0]
+
+        if self.cern.abrir(ubicacion):
+            QMessageBox.information(
+                self,
+                "Éxito",
+                "Se abrió el archivo " + ubicacion
+            )
+            self.mostrar()
+        else:
+            QMessageBox.critical(
+                self,
+                "Error",
+                "Error al abrir el archivo " + ubicacion
+            )
+
+    @Slot()
+    def guardar_archivo(self):
+        ubicacion = QFileDialog.getSaveFileName(
+            self,
+            'Abrir archivo',
+            '.',
+            'JSON (*.json)'
+        )[0]
+
+        print("Archivo: " + ubicacion)
+
+        if self.cern.guardar(ubicacion):
+            QMessageBox.information(
+                self,
+                "Éxito",
+                "Se guardó en el archivo " + ubicacion
+            )
+        else:
+            QMessageBox.critical(
+                self,
+                "Error",
+                "Error al guardar el archivo " + ubicacion
+            )
 
     @Slot()
     def agregar_inicio(self):

@@ -1,4 +1,5 @@
 from lib.particula import Particula
+import json
 
 class CERN:
     def __init__(self):
@@ -18,6 +19,25 @@ class CERN:
         return "".join(
             str(particula) + '\n' for particula in self.__particulas 
         )
+
+    def guardar(self, ubicacion):
+        try:
+            with open(ubicacion,'w') as archivo:
+                lista = [particula.to_dict() for particula in self.__particulas]
+                print(lista)
+                json.dump(lista, archivo, indent=5)
+            return True
+        except:
+            return False
+
+    def abrir(self, ubicacion):
+        try:
+            with open(ubicacion, 'r') as archivo:
+                lista = json.load(archivo)
+                self.__particulas = [Particula(**particula) for particula in lista ]
+            return True
+        except:
+            return False 
 
 # p1 = Particula(1,10,10,30,35,100,255,255,0)
 # p2 = Particula(2,0,0,-10,-20,10,128,128,128)

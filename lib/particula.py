@@ -23,3 +23,16 @@ class Particula:
             f"Destino: { self.__destino_x},{ self.__destino_y}\nVelocidad: { self.__velocidad }\n" +
             f"Distancia: {self.__distancia}\nColor: rgb({ self.__red },{ self.__green },{ self.__blue })\n"
         )
+
+    def to_dict(self):
+        return {
+            "id" : self.__id,
+            "origen_x" : self.__origen_x,
+            "origen_y" : self.__origen_y,
+            "destino_x" : self.__destino_x,
+            "destino_y" : self.__destino_y,
+            "velocidad" : self.__velocidad,
+            "red" : self.__red,
+            "green" : self.__green,
+            "blue" : self.__blue
+        }
