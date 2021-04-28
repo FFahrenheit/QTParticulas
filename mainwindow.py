@@ -1,6 +1,6 @@
 from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QTableWidgetItem, QGraphicsScene
 from PySide2.QtCore import Slot
-from PySide2.QtGui import QPen, QColor, QTransform
+from PySide2.QtGui import QPen, QColor
 from ui_mainwindow import Ui_MainWindow
 from lib.cern import CERN
 from lib.particula import Particula
