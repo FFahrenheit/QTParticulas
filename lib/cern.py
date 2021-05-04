@@ -55,6 +55,15 @@ class CERN:
         except:
             return False 
 
+    def sort_by_id(self):
+        self.__particulas.sort(key=lambda particula : particula.id)
+
+    def sort_by_distancia(self):
+        self.__particulas.sort(key=lambda particula : particula.distancia, reverse=True)
+    
+    def sort_by_velocidad(self):
+        self.__particulas.sort(key=lambda particula : particula.velocidad)
+
 # p1 = Particula(1,10,10,30,35,100,255,255,0)
 # p2 = Particula(2,0,0,-10,-20,10,128,128,128)
 # p3 = Particula(3,-10,5,0,15,200,92,29,102)

@@ -39,14 +39,6 @@ class MainWindow(QMainWindow):
     def sort_plain(self,index):
         self.ui.plainTextSort.setCurrentIndex(index)
         self.ui.tableSort.setCurrentIndex(index)
-        
-        if index == 0:
-            print("Id asc")
-        elif index == 1:
-            print("Distancia descendente")
-        elif index == 2:
-            print("Velocidad ascendente")
-
         self.mostrar()
 
     def wheelEvent(self, event):
@@ -197,7 +189,16 @@ class MainWindow(QMainWindow):
     @Slot()
     def mostrar(self):
         self.ui.salida.clear()
-        self.ui.salida.insertPlainText(str(self.cern))
+        index = self.ui.tableSort.currentIndex()
+
+        if index == 0:
+            self.cern.sort_by_id()
+        elif index == 1:
+            self.cern.sort_by_distancia()
+        elif index == 2:
+            self.cern.sort_by_velocidad()
+
+        self.ui.salida.insertPlainText(str(self.cern))            
         self.mostrar_tabla()
         self.dibujar()
 
