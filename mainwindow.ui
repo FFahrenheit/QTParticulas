@@ -25,7 +25,36 @@
         <string>Agregar</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="0">
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>Ordenar</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QPlainTextEdit" name="salida"/>
+        </item>
+        <item row="3" column="1">
+         <widget class="QComboBox" name="plainTextSort">
+          <item>
+           <property name="text">
+            <string>Id ascendente</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Distancia descendente</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Velocidad ascendente</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0" rowspan="4">
          <widget class="QGroupBox" name="groupBox">
           <property name="title">
            <string>Partícula</string>
@@ -214,9 +243,6 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QPlainTextEdit" name="salida"/>
-        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tab_2">
@@ -224,8 +250,12 @@
         <string>Tabla</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_7">
-        <item row="0" column="0" colspan="3">
-         <widget class="QTableWidget" name="tabla"/>
+        <item row="1" column="3">
+         <widget class="QPushButton" name="mostrar_tabla_pushButton">
+          <property name="text">
+           <string>Mostrar</string>
+          </property>
+         </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLineEdit" name="buscar_lineEdit">
@@ -241,11 +271,26 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="0" colspan="4">
+         <widget class="QTableWidget" name="tabla"/>
+        </item>
         <item row="1" column="2">
-         <widget class="QPushButton" name="mostrar_tabla_pushButton">
-          <property name="text">
-           <string>Mostrar</string>
-          </property>
+         <widget class="QComboBox" name="tableSort">
+          <item>
+           <property name="text">
+            <string>Id ascendente</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Distancia descendente</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Velocidad ascendente</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>

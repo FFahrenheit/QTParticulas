@@ -32,6 +32,23 @@ class MainWindow(QMainWindow):
         self.scene = QGraphicsScene()
         self.ui.graphicsView.setScene(self.scene)
 
+        self.ui.plainTextSort.currentIndexChanged.connect(self.sort_plain)
+        self.ui.tableSort.currentIndexChanged.connect(self.sort_plain)
+
+    @Slot()
+    def sort_plain(self,index):
+        self.ui.plainTextSort.setCurrentIndex(index)
+        self.ui.tableSort.setCurrentIndex(index)
+        
+        if index == 0:
+            print("Id asc")
+        elif index == 1:
+            print("Distancia descendente")
+        elif index == 2:
+            print("Velocidad ascendente")
+
+        self.mostrar()
+
     def wheelEvent(self, event):
         if event.delta() > 0:
             self.ui.graphicsView.scale(1.2, 1.2)

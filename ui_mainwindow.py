@@ -32,6 +32,24 @@ class Ui_MainWindow(object):
         self.tab.setObjectName(u"tab")
         self.gridLayout_5 = QGridLayout(self.tab)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
+        self.label_10 = QLabel(self.tab)
+        self.label_10.setObjectName(u"label_10")
+
+        self.gridLayout_5.addWidget(self.label_10, 0, 1, 1, 1)
+
+        self.salida = QPlainTextEdit(self.tab)
+        self.salida.setObjectName(u"salida")
+
+        self.gridLayout_5.addWidget(self.salida, 4, 1, 1, 1)
+
+        self.plainTextSort = QComboBox(self.tab)
+        self.plainTextSort.addItem("")
+        self.plainTextSort.addItem("")
+        self.plainTextSort.addItem("")
+        self.plainTextSort.setObjectName(u"plainTextSort")
+
+        self.gridLayout_5.addWidget(self.plainTextSort, 3, 1, 1, 1)
+
         self.groupBox = QGroupBox(self.tab)
         self.groupBox.setObjectName(u"groupBox")
         self.gridLayout_4 = QGridLayout(self.groupBox)
@@ -174,22 +192,17 @@ class Ui_MainWindow(object):
         self.gridLayout_4.addWidget(self.mostrar_button, 7, 0, 1, 2)
 
 
-        self.gridLayout_5.addWidget(self.groupBox, 0, 0, 1, 1)
-
-        self.salida = QPlainTextEdit(self.tab)
-        self.salida.setObjectName(u"salida")
-
-        self.gridLayout_5.addWidget(self.salida, 0, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.groupBox, 1, 0, 4, 1)
 
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QWidget()
         self.tab_2.setObjectName(u"tab_2")
         self.gridLayout_7 = QGridLayout(self.tab_2)
         self.gridLayout_7.setObjectName(u"gridLayout_7")
-        self.tabla = QTableWidget(self.tab_2)
-        self.tabla.setObjectName(u"tabla")
+        self.mostrar_tabla_pushButton = QPushButton(self.tab_2)
+        self.mostrar_tabla_pushButton.setObjectName(u"mostrar_tabla_pushButton")
 
-        self.gridLayout_7.addWidget(self.tabla, 0, 0, 1, 3)
+        self.gridLayout_7.addWidget(self.mostrar_tabla_pushButton, 1, 3, 1, 1)
 
         self.buscar_lineEdit = QLineEdit(self.tab_2)
         self.buscar_lineEdit.setObjectName(u"buscar_lineEdit")
@@ -201,10 +214,18 @@ class Ui_MainWindow(object):
 
         self.gridLayout_7.addWidget(self.buscar_pushButton, 1, 1, 1, 1)
 
-        self.mostrar_tabla_pushButton = QPushButton(self.tab_2)
-        self.mostrar_tabla_pushButton.setObjectName(u"mostrar_tabla_pushButton")
+        self.tabla = QTableWidget(self.tab_2)
+        self.tabla.setObjectName(u"tabla")
 
-        self.gridLayout_7.addWidget(self.mostrar_tabla_pushButton, 1, 2, 1, 1)
+        self.gridLayout_7.addWidget(self.tabla, 0, 0, 1, 4)
+
+        self.tableSort = QComboBox(self.tab_2)
+        self.tableSort.addItem("")
+        self.tableSort.addItem("")
+        self.tableSort.addItem("")
+        self.tableSort.setObjectName(u"tableSort")
+
+        self.gridLayout_7.addWidget(self.tableSort, 1, 2, 1, 1)
 
         self.tabWidget.addTab(self.tab_2, "")
         self.tab_3 = QWidget()
@@ -263,6 +284,11 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(shortcut)
         self.actionGuardar.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+D", None))
 #endif // QT_CONFIG(shortcut)
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"Ordenar", None))
+        self.plainTextSort.setItemText(0, QCoreApplication.translate("MainWindow", u"Id ascendente", None))
+        self.plainTextSort.setItemText(1, QCoreApplication.translate("MainWindow", u"Distancia descendente", None))
+        self.plainTextSort.setItemText(2, QCoreApplication.translate("MainWindow", u"Velocidad ascendente", None))
+
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Part\u00edcula", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Id", None))
         self.groupBox_4.setTitle(QCoreApplication.translate("MainWindow", u"Destino", None))
@@ -280,9 +306,13 @@ class Ui_MainWindow(object):
         self.agregar_inicio_button.setText(QCoreApplication.translate("MainWindow", u"Agregar al inicio", None))
         self.mostrar_button.setText(QCoreApplication.translate("MainWindow", u"Mostrar", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Agregar", None))
+        self.mostrar_tabla_pushButton.setText(QCoreApplication.translate("MainWindow", u"Mostrar", None))
         self.buscar_lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Id de la particula", None))
         self.buscar_pushButton.setText(QCoreApplication.translate("MainWindow", u"Buscar", None))
-        self.mostrar_tabla_pushButton.setText(QCoreApplication.translate("MainWindow", u"Mostrar", None))
+        self.tableSort.setItemText(0, QCoreApplication.translate("MainWindow", u"Id ascendente", None))
+        self.tableSort.setItemText(1, QCoreApplication.translate("MainWindow", u"Distancia descendente", None))
+        self.tableSort.setItemText(2, QCoreApplication.translate("MainWindow", u"Velocidad ascendente", None))
+
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Tabla", None))
         self.dibujar.setText(QCoreApplication.translate("MainWindow", u"Dibujar", None))
         self.borrar.setText(QCoreApplication.translate("MainWindow", u"Borrar", None))
