@@ -1,9 +1,10 @@
 from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QTableWidgetItem, QGraphicsScene
 from PySide2.QtCore import Slot
-from PySide2.QtGui import QPen, QColor
+from PySide2.QtGui import QPen, QColor, QTextCursor
 from ui_mainwindow import Ui_MainWindow
 from lib.cern import CERN
 from lib.particula import Particula
+from pprint import pformat
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -16,12 +17,15 @@ class MainWindow(QMainWindow):
 
         self.ui.agregar_inicio_button.clicked.connect(self.agregar_inicio)
         self.ui.agregar_final_button.clicked.connect(self.agregar_fin)
-        self.ui.mostrar_button.clicked.connect(self.mostrar)
+        self.ui.mostrar_button.clicked.connect(self.mostrar_plano)
+        self.ui.grafo_button.clicked.connect(self.mostrar_grafo)
 
         self.ui.salida.setReadOnly(True)
+        self.grafo = False
 
         self.ui.actionAbrir.triggered.connect(self.abrir_archivo)
         self.ui.actionGuardar.triggered.connect(self.guardar_archivo)
+        self.ui.actionGrafo.triggered.connect(self.mostrar_grafo)
 
         self.ui.mostrar_tabla_pushButton.clicked.connect(self.mostrar_tabla)
         self.ui.buscar_pushButton.clicked.connect(self.buscar_id)
@@ -187,6 +191,16 @@ class MainWindow(QMainWindow):
         self.mostrar()
     
     @Slot()
+    def mostrar_grafo(self):
+        self.grafo = True
+        self.mostrar()
+
+    @Slot()
+    def mostrar_plano(self):
+        self.grafo = False
+        self.mostrar()
+
+    @Slot()
     def mostrar(self):
         self.ui.salida.clear()
         index = self.ui.tableSort.currentIndex()
@@ -198,7 +212,16 @@ class MainWindow(QMainWindow):
         elif index == 2:
             self.cern.sort_by_velocidad()
 
-        self.ui.salida.insertPlainText(str(self.cern))            
+        if self.grafo:
+            grafo = self.cern.to_dict()
+
+            formated = pformat(grafo, width=40, indent=1)
+            print(formated)
+            self.ui.salida.insertPlainText(formated)
+
+        else:
+            self.ui.salida.insertPlainText(str(self.cern))            
+        
         self.mostrar_tabla()
         self.dibujar()
 

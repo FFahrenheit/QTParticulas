@@ -64,6 +64,28 @@ class CERN:
     def sort_by_velocidad(self):
         self.__particulas.sort(key=lambda particula : particula.velocidad)
 
+    def to_dict(self):
+        grafo = dict()
+        for particula in self.__particulas:
+
+            key = ( particula.origen_x, particula.origen_y )
+            value = ( particula.destino_x , particula.destino_y , round(particula.distancia))
+
+            if key in grafo:
+                grafo[key].append(value)
+            else:
+                grafo[key] = [ value ]
+
+            key = ( particula.destino_x, particula.destino_y )
+            value = ( particula.origen_x, particula.origen_y, round(particula.distancia))
+
+            if key in grafo:
+                grafo[key].append(value)
+            else:
+                grafo[key] = [ value ]
+            
+        return grafo
+
 # p1 = Particula(1,10,10,30,35,100,255,255,0)
 # p2 = Particula(2,0,0,-10,-20,10,128,128,128)
 # p3 = Particula(3,-10,5,0,15,200,92,29,102)
