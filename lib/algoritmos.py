@@ -46,7 +46,14 @@ def recorrido_anchura(grafo : dict, origen):
 
     return recorrido
 
-def recorrido_profunidad(grafo : dict, origen):
+""" Recorre el grafo en profundidad
+
+Devuelve el string correspondiente a la salida
+en el orden definido
+
+grafo : Grafo a recorrer
+"""
+def recorrido_profundidad(grafo : dict, origen):
     visitados = []
     pila = []
     recorrido = []
@@ -60,7 +67,7 @@ def recorrido_profunidad(grafo : dict, origen):
 
         adyacentes = grafo.get(vertice)
 
-        for ady in adyacentes:              #No pude iterar sobre la lista de tuplas
+        for ady in adyacentes:              
             ady = ady[0]                    #Obtener destino solamente
             if ady not in visitados:
                 visitados.append(ady)

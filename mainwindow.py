@@ -21,7 +21,6 @@ class MainWindow(QMainWindow):
         self.ui.grafo_button.clicked.connect(self.mostrar_grafo)
 
         self.ui.salida.setReadOnly(True)
-        self.ui.salida.setCenterOnScroll(True)
         self.grafo = False
 
         self.ui.actionAbrir.triggered.connect(self.abrir_archivo)
@@ -45,6 +44,7 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def mostrar_recorridos(self):
+        self.mostrar()
         if not self.grafo or len(self.cern) == 0:
             QMessageBox.critical(
                 self,
