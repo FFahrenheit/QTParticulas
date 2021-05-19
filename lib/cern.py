@@ -1,5 +1,6 @@
 from lib.particula import Particula
 import json
+from lib.algoritmos import recorrido_anchura, recorrido_profunidad
 
 class CERN:
     def __init__(self):
@@ -69,7 +70,7 @@ class CERN:
         for particula in self.__particulas:
 
             key = ( particula.origen_x, particula.origen_y )
-            value = ( particula.destino_x , particula.destino_y , round(particula.distancia))
+            value = ( (particula.destino_x , particula.destino_y ), round(particula.distancia))
 
             if key in grafo:
                 grafo[key].append(value)
@@ -77,14 +78,30 @@ class CERN:
                 grafo[key] = [ value ]
 
             key = ( particula.destino_x, particula.destino_y )
-            value = ( particula.origen_x, particula.origen_y, round(particula.distancia))
+            value = ( (particula.origen_x, particula.origen_y), round(particula.distancia))
 
             if key in grafo:
                 grafo[key].append(value)
             else:
                 grafo[key] = [ value ]
             
-        return grafo
+        self.grafo = grafo
+        return self.grafo
+
+    def recorrido_anchura(self,origen):
+        recorrido = recorrido_anchura(self.grafo,origen)
+        return self.str_recorrido(recorrido)
+
+    def recorrido_profundidad(self,origen):
+        recorrido = recorrido_profunidad(self.grafo,origen)
+        return self.str_recorrido(recorrido)
+
+    def str_recorrido(self,recorrido):
+        out = ""
+        for vertice in recorrido:
+            out += str(vertice) + '\n'
+        
+        return out
 
 # p1 = Particula(1,10,10,30,35,100,255,255,0)
 # p2 = Particula(2,0,0,-10,-20,10,128,128,128)

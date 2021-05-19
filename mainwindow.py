@@ -1,6 +1,6 @@
 from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QTableWidgetItem, QGraphicsScene
 from PySide2.QtCore import Slot
-from PySide2.QtGui import QPen, QColor, QTextCursor
+from PySide2.QtGui import QPen, QColor
 from ui_mainwindow import Ui_MainWindow
 from lib.cern import CERN
 from lib.particula import Particula
@@ -21,11 +21,15 @@ class MainWindow(QMainWindow):
         self.ui.grafo_button.clicked.connect(self.mostrar_grafo)
 
         self.ui.salida.setReadOnly(True)
+        self.ui.salida.setCenterOnScroll(True)
         self.grafo = False
 
         self.ui.actionAbrir.triggered.connect(self.abrir_archivo)
         self.ui.actionGuardar.triggered.connect(self.guardar_archivo)
-        self.ui.actionGrafo.triggered.connect(self.mostrar_grafo)
+        self.ui.action_grafo.triggered.connect(self.mostrar_grafo)
+        self.ui.action_lista.triggered.connect(self.mostrar_plano)
+
+        self.ui.action_recorridos.triggered.connect(self.mostrar_recorridos)
 
         self.ui.mostrar_tabla_pushButton.clicked.connect(self.mostrar_tabla)
         self.ui.buscar_pushButton.clicked.connect(self.buscar_id)
@@ -39,6 +43,43 @@ class MainWindow(QMainWindow):
         self.ui.plainTextSort.currentIndexChanged.connect(self.sort_plain)
         self.ui.tableSort.currentIndexChanged.connect(self.sort_plain)
 
+    @Slot()
+    def mostrar_recorridos(self):
+        if not self.grafo or len(self.cern) == 0:
+            QMessageBox.critical(
+                self,
+                "No se pudo leer",
+                "Convierta a grafo no vacío antes"
+            )
+        else:
+            origen_x = int(self.ui.origin_x.text())
+            origen_y = int(self.ui.origin_y.text()) 
+            origen = (origen_x, origen_y)
+            
+            if origen not in self.cern.to_dict():
+                QMessageBox.information(
+                    self,
+                    "Sin origen válido",
+                    "Se usará el primer elemento en el grafo como origen"
+                )
+                origen = next(iter(self.cern.to_dict()))
+                print(f"Origen = {str(origen)}")
+
+            anchura = self.cern.recorrido_anchura(origen)
+            profundidad = self.cern.recorrido_profundidad(origen)
+
+            print("Recorrido en anchura:")
+            print(anchura)
+            self.ui.salida.insertPlainText('\n\nRecorrido en anchura:\n')
+            self.ui.salida.insertPlainText(anchura)
+
+            print("Recorrido en profundidad:")
+            print(profundidad)
+            self.ui.salida.insertPlainText('\nRecorrido en profundidad:\n')
+            self.ui.salida.insertPlainText(profundidad)
+
+            self.ui.salida.ensureCursorVisible()
+    
     @Slot()
     def sort_plain(self,index):
         self.ui.plainTextSort.setCurrentIndex(index)

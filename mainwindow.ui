@@ -60,49 +60,6 @@
            <string>Partícula</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
-           <item row="1" column="0" colspan="2">
-            <widget class="QGroupBox" name="groupBox_3">
-             <property name="title">
-              <string>Origen</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_3">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_4">
-                <property name="text">
-                 <string>x</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QSpinBox" name="origin_y">
-                <property name="minimum">
-                 <number>0</number>
-                </property>
-                <property name="maximum">
-                 <number>500</number>
-                </property>
-                <property name="value">
-                 <number>0</number>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1" rowspan="2">
-               <widget class="QSpinBox" name="origin_x">
-                <property name="maximum">
-                 <number>500</number>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0" rowspan="2">
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>y</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label">
              <property name="text">
@@ -209,10 +166,10 @@
               <string>Destino</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_2">
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_3">
                 <property name="text">
-                 <string>x</string>
+                 <string>y</string>
                 </property>
                </widget>
               </item>
@@ -223,10 +180,10 @@
                 </property>
                </widget>
               </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_3">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_2">
                 <property name="text">
-                 <string>y</string>
+                 <string>x</string>
                 </property>
                </widget>
               </item>
@@ -245,6 +202,49 @@
              <property name="text">
               <string>Mostrar grafo</string>
              </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QGroupBox" name="groupBox_3">
+             <property name="title">
+              <string>Origen</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_3">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_4">
+                <property name="text">
+                 <string>x</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QSpinBox" name="origin_y">
+                <property name="minimum">
+                 <number>0</number>
+                </property>
+                <property name="maximum">
+                 <number>500</number>
+                </property>
+                <property name="value">
+                 <number>0</number>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" rowspan="2">
+               <widget class="QSpinBox" name="origin_x">
+                <property name="maximum">
+                 <number>500</number>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0" rowspan="2">
+               <widget class="QLabel" name="label_5">
+                <property name="text">
+                 <string>y</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
           </layout>
@@ -345,9 +345,23 @@
     </property>
     <addaction name="actionAbrir"/>
     <addaction name="actionGuardar"/>
-    <addaction name="actionGrafo"/>
+   </widget>
+   <widget class="QMenu" name="menuVer">
+    <property name="title">
+     <string>Ver</string>
+    </property>
+    <addaction name="action_grafo"/>
+    <addaction name="action_lista"/>
+   </widget>
+   <widget class="QMenu" name="menuAlgoritmos">
+    <property name="title">
+     <string>Algoritmos</string>
+    </property>
+    <addaction name="action_recorridos"/>
    </widget>
    <addaction name="menuArchivo"/>
+   <addaction name="menuVer"/>
+   <addaction name="menuAlgoritmos"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionAbrir">
@@ -366,12 +380,28 @@
     <string>Ctrl+D</string>
    </property>
   </action>
-  <action name="actionGrafo">
+  <action name="action_grafo">
    <property name="text">
-    <string>Convertir a Grafo</string>
+    <string>Ver como grafo</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="action_lista">
+   <property name="text">
+    <string>Ver como lista</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="action_recorridos">
+   <property name="text">
+    <string>Recorridos (profundidad/anchura)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
    </property>
   </action>
  </widget>
