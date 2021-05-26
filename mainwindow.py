@@ -65,23 +65,23 @@ class MainWindow(QMainWindow):
                 )
                 origen = next(iter(self.cern.to_dict()))
 
-                arbol = self.cern.prim(origen)
-                print(arbol)
+            arbol = self.cern.prim(origen)
+            print(arbol)
 
-                self.ui.tabWidget.setCurrentIndex(2)
-                
-                pen = QPen()
-                pen.setDashPattern([1,3])
-                color  = QColor(255,255,255)
-                pen.setColor(color)
-                pen.setWidth(4)
-                
-                for arista in arbol:
+            self.ui.tabWidget.setCurrentIndex(2)
+            
+            pen = QPen()
+            pen.setDashPattern([1,3])
+            color  = QColor(255,255,255)
+            pen.setColor(color)
+            pen.setWidth(4)
+            
+            for arista in arbol:
 
-                    origen = arista[1]
-                    destino = arista[2]
+                origen = arista[1]
+                destino = arista[2]
 
-                    self.scene.addLine(origen[0]+3, origen[1]+3, destino[0], destino[1], pen)
+                self.scene.addLine(origen[0]+3, origen[1]+3, destino[0], destino[1], pen)
 
     @Slot()
     def mostrar_recorridos(self):
