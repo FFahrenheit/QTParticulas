@@ -358,6 +358,7 @@
      <string>Algoritmos</string>
     </property>
     <addaction name="action_recorridos"/>
+    <addaction name="action_prim"/>
    </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuVer"/>
@@ -402,6 +403,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="action_prim">
+   <property name="text">
+    <string>Prim</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
    </property>
   </action>
  </widget>
