@@ -63,10 +63,11 @@ class MainWindow(QMainWindow):
                     "Se usará el primer elemento en el grafo como origen"
                 )
                 origen = next(iter(self.cern.to_dict()))
-                print(f"Origen = {str(origen)}")
 
             anchura = self.cern.recorrido_anchura(origen)
             profundidad = self.cern.recorrido_profundidad(origen)
+            
+            print(f"Origen = {str(origen)}")
 
             print("Recorrido en anchura:")
             print(anchura)
@@ -179,7 +180,7 @@ class MainWindow(QMainWindow):
         ubicacion = QFileDialog.getOpenFileName(
             self,
             'Abrir archivo',
-            '.',
+            './examples',
             'JSON (*.json)'
         )[0]
 
@@ -202,7 +203,7 @@ class MainWindow(QMainWindow):
         ubicacion = QFileDialog.getSaveFileName(
             self,
             'Abrir archivo',
-            '.',
+            './examples',
             'JSON (*.json)'
         )[0]
 

@@ -1,4 +1,5 @@
 import math 
+from queue import PriorityQueue
 
 """ Calcula la distancia euclidiana
 
@@ -74,3 +75,9 @@ def recorrido_profundidad(grafo : dict, origen):
                 pila.append(ady)
 
     return recorrido
+
+"""
+Algoritmo de Prim
+"""
+def prim(grafo : dict, origen):
+    return 0

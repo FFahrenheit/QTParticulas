@@ -4,9 +4,9 @@ import sys
 
 # Aplicación de Qt
 app = QApplication()
-# Se crea un botón con la palabra Hola
+# Se crea la vista
 window = MainWindow()
-# Se hace visible el botón
+# Se hace visible
 window.show()
 # Qt loop
 sys.exit(app.exec_())
