@@ -80,4 +80,38 @@ def recorrido_profundidad(grafo : dict, origen):
 Algoritmo de Prim
 """
 def prim(grafo : dict, origen):
-    return 0
+    visitados = []
+    pq = PriorityQueue()
+    arbol_expansion = []
+
+    visitados.append(origen)
+
+    for ady in grafo.get(origen):
+        arista = (ady[1],origen,ady[0])         #Orden peso, origen, destino
+        pq.put(arista)               
+
+    while not pq.empty():
+        arista = pq.get()
+        destino = arista[2]
+
+        if destino not in visitados:
+            visitados.append(destino)
+
+            for ady in grafo.get(destino):
+                if ady[0] not in visitados:
+                    adyacente = (ady[1],destino,ady[0])
+                    pq.put(adyacente)
+            
+            arbol_expansion.append(arista)
+
+    return arbol_expansion 
+
+# def printqueue(arr : PriorityQueue):
+#     pq = PriorityQueue()
+#     while not arr.empty():
+#         x = arr.get()
+#         pq.put(x)
+#         print(x)
+
+#     return pq
+    

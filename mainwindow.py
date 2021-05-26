@@ -27,8 +27,9 @@ class MainWindow(QMainWindow):
         self.ui.actionGuardar.triggered.connect(self.guardar_archivo)
         self.ui.action_grafo.triggered.connect(self.mostrar_grafo)
         self.ui.action_lista.triggered.connect(self.mostrar_plano)
-
+        
         self.ui.action_recorridos.triggered.connect(self.mostrar_recorridos)
+        self.ui.action_prim.triggered.connect(self.dibujar_prim)
 
         self.ui.mostrar_tabla_pushButton.clicked.connect(self.mostrar_tabla)
         self.ui.buscar_pushButton.clicked.connect(self.buscar_id)
@@ -41,6 +42,46 @@ class MainWindow(QMainWindow):
 
         self.ui.plainTextSort.currentIndexChanged.connect(self.sort_plain)
         self.ui.tableSort.currentIndexChanged.connect(self.sort_plain)
+
+    @Slot()
+    def dibujar_prim(self):
+        self.mostrar()
+        if not self.grafo or len(self.cern) == 0:
+            QMessageBox.critical(
+                self,
+                "No se pudo leer",
+                "Convierta a grafo no vacío antes"
+            )
+        else:
+            origen_x = int(self.ui.origin_x.text())
+            origen_y = int(self.ui.origin_y.text()) 
+            origen = (origen_x, origen_y)
+            
+            if origen not in self.cern.to_dict():
+                QMessageBox.information(
+                    self,
+                    "Sin origen válido",
+                    "Se usará el primer elemento en el grafo como origen"
+                )
+                origen = next(iter(self.cern.to_dict()))
+
+                arbol = self.cern.prim(origen)
+                print(arbol)
+
+                self.ui.tabWidget.setCurrentIndex(2)
+                
+                pen = QPen()
+                pen.setDashPattern([1,3])
+                color  = QColor(255,255,255)
+                pen.setColor(color)
+                pen.setWidth(4)
+                
+                for arista in arbol:
+
+                    origen = arista[1]
+                    destino = arista[2]
+
+                    self.scene.addLine(origen[0]+3, origen[1]+3, destino[0], destino[1], pen)
 
     @Slot()
     def mostrar_recorridos(self):
@@ -95,21 +136,23 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def dibujar(self):
+        self.scene.clear()
         if len(self.cern) > 0:
             pen = QPen()
-            maxValue = max( [p.velocidad for p in self.cern] )
+            # maxValue = max( [p.velocidad for p in self.cern] )
 
             for particula in self.cern:
 
                 color  = QColor(int(particula.red), int(particula.green), int(particula.blue))
                 pen.setColor(color)
 
-                dimension = round(6 - 3 * particula.velocidad / (maxValue+0.1)) 
+                # dimension = round(6 - 3 * particula.velocidad / (maxValue+0.1)) 
+                dimension = 5
                 pen.setWidth(dimension)
 
+                self.scene.addLine(particula.origen_x+3, particula.origen_y+3, particula.destino_x, particula.destino_y, pen) 
                 self.scene.addEllipse(particula.origen_x, particula.origen_y, dimension, dimension, pen)
                 self.scene.addEllipse(particula.destino_x, particula.destino_y, dimension, dimension, pen)
-                self.scene.addLine(particula.origen_x+3, particula.origen_y+3, particula.destino_x, particula.destino_y, pen) 
 
     @Slot()
     def limpiar(self):

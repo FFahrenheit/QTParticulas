@@ -1,6 +1,6 @@
 from lib.particula import Particula
 import json
-from lib.algoritmos import recorrido_anchura, recorrido_profundidad
+import lib.algoritmos as alg
 
 class CERN:
     def __init__(self):
@@ -89,11 +89,11 @@ class CERN:
         return self.grafo
 
     def recorrido_anchura(self,origen):
-        recorrido = recorrido_anchura(self.grafo,origen)
+        recorrido = alg.recorrido_anchura(self.grafo,origen)
         return self.str_recorrido(recorrido)
 
     def recorrido_profundidad(self,origen):
-        recorrido = recorrido_profundidad(self.grafo,origen)
+        recorrido = alg.recorrido_profundidad(self.grafo,origen)
         return self.str_recorrido(recorrido)
 
     def str_recorrido(self,recorrido):
@@ -102,3 +102,6 @@ class CERN:
             out += str(vertice) + '\n'
         
         return out
+    
+    def prim(self,origen):
+        return alg.prim(self.grafo,origen)
