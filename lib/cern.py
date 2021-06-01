@@ -65,12 +65,13 @@ class CERN:
     def sort_by_velocidad(self):
         self.__particulas.sort(key=lambda particula : particula.velocidad)
 
-    def to_dict(self):
+    def to_dict(self, parameter='distancia'):
         grafo = dict()
         for particula in self.__particulas:
 
             key = ( particula.origen_x, particula.origen_y )
-            value = ( (particula.destino_x , particula.destino_y ), round(particula.distancia))
+            weight = round(particula.distancia) if parameter == 'distancia' else particula.velocidad
+            value = ( (particula.destino_x , particula.destino_y ), weight)
 
             if key in grafo:
                 grafo[key].append(value)
@@ -78,7 +79,8 @@ class CERN:
                 grafo[key] = [ value ]
 
             key = ( particula.destino_x, particula.destino_y )
-            value = ( (particula.origen_x, particula.origen_y), round(particula.distancia))
+            weight = round(particula.distancia) if parameter == 'distancia' else particula.velocidad
+            value = ( (particula.origen_x, particula.origen_y), weight)
 
             if key in grafo:
                 grafo[key].append(value)
@@ -105,3 +107,7 @@ class CERN:
     
     def prim(self,origen):
         return alg.prim(self.grafo,origen)
+
+    def kruskal(self):
+        dict_grafo = self.to_dict('velocidad')
+        return alg.kruskal(dict_grafo)

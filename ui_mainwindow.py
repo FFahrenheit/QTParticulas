@@ -30,6 +30,8 @@ class Ui_MainWindow(object):
         self.action_recorridos.setObjectName(u"action_recorridos")
         self.action_prim = QAction(MainWindow)
         self.action_prim.setObjectName(u"action_prim")
+        self.action_kruskal = QAction(MainWindow)
+        self.action_kruskal.setObjectName(u"action_kruskal")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout_6 = QGridLayout(self.centralwidget)
@@ -288,6 +290,7 @@ class Ui_MainWindow(object):
         self.menuVer.addAction(self.action_lista)
         self.menuAlgoritmos.addAction(self.action_recorridos)
         self.menuAlgoritmos.addAction(self.action_prim)
+        self.menuAlgoritmos.addAction(self.action_kruskal)
 
         self.retranslateUi(MainWindow)
 
@@ -322,6 +325,10 @@ class Ui_MainWindow(object):
         self.action_prim.setText(QCoreApplication.translate("MainWindow", u"Prim", None))
 #if QT_CONFIG(shortcut)
         self.action_prim.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+P", None))
+#endif // QT_CONFIG(shortcut)
+        self.action_kruskal.setText(QCoreApplication.translate("MainWindow", u"Kruskal", None))
+#if QT_CONFIG(shortcut)
+        self.action_kruskal.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+K", None))
 #endif // QT_CONFIG(shortcut)
         self.plainTextSort.setItemText(0, QCoreApplication.translate("MainWindow", u"Id ascendente", None))
         self.plainTextSort.setItemText(1, QCoreApplication.translate("MainWindow", u"Distancia descendente", None))

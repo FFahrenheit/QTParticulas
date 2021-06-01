@@ -30,6 +30,7 @@ class MainWindow(QMainWindow):
         
         self.ui.action_recorridos.triggered.connect(self.mostrar_recorridos)
         self.ui.action_prim.triggered.connect(self.dibujar_prim)
+        self.ui.action_kruskal.triggered.connect(self.dibujar_kruskal)
 
         self.ui.mostrar_tabla_pushButton.clicked.connect(self.mostrar_tabla)
         self.ui.buscar_pushButton.clicked.connect(self.buscar_id)
@@ -42,6 +43,35 @@ class MainWindow(QMainWindow):
 
         self.ui.plainTextSort.currentIndexChanged.connect(self.sort_plain)
         self.ui.tableSort.currentIndexChanged.connect(self.sort_plain)
+
+    @Slot()
+    def dibujar_kruskal(self):
+        self.mostrar()
+        if not self.grafo or len(self.cern) == 0:
+            QMessageBox.critical(
+                self,
+                "No se pudo leer",
+                "Convierta a grafo no vacío antes"
+            )
+        else:
+            arbol = self.cern.kruskal()
+            print("Arbol de expansion minima: ")
+            print(arbol)
+
+            self.ui.tabWidget.setCurrentIndex(2)
+            
+            pen = QPen()
+            pen.setDashPattern([1,3])
+            color  = QColor(255,255,255)
+            pen.setColor(color)
+            pen.setWidth(4)
+            
+            for arista in arbol:
+
+                origen = arista[1]
+                destino = arista[2]
+
+                self.scene.addLine(origen[0]+3, origen[1]+3, destino[0], destino[1], pen)
 
     @Slot()
     def dibujar_prim(self):

@@ -106,12 +106,68 @@ def prim(grafo : dict, origen):
 
     return arbol_expansion 
 
-# def printqueue(arr : PriorityQueue):
-#     pq = PriorityQueue()
-#     while not arr.empty():
-#         x = arr.get()
-#         pq.put(x)
-#         print(x)
 
-#     return pq
+class DisjointSet:
+    def __init__(self):
+        self.elements = []
+
+    def print(self):
+        print(self.elements)
+
+    def make_set(self,element):
+        if element not in self.elements:
+            self.elements.append([element])
+
+    def find_set(self,element):
+        for index,elem in enumerate(self.elements):
+            if element in elem:
+                return index
+        
+        return -1 
+    
+    def union(self,A,B):
+        index_A = self.find_set(A)
+        index_B = self.find_set(B)
+
+        self.elements[index_A] += self.elements[index_B]
+        self.elements.pop(index_B)
+
+
+def kruskal(grafo : dict):
+    arbol_expansion = []
+    ds = DisjointSet()
+    lista = PriorityQueue()
+
+    for nodo in grafo:
+        for ady in grafo.get(nodo):
+            arista = (ady[1] * -1 , nodo, ady[0])     #*-1 para ordenar de mayor a menor
+            lista.put(arista)
+
+        ds.make_set(nodo)
+
+    ds.print()
+
+    while not lista.empty():
+        arista = lista.get()
+
+        origen = arista[1]
+        destino = arista[2]
+
+        if ds.find_set(origen) != ds.find_set(destino):
+            arbol_expansion.append(arista)
+            ds.union(origen,destino)
+
+            print(f"Arista = {arista}")    
+            ds.print()
+
+    return arbol_expansion
+
+def printqueue(arr : PriorityQueue):
+    pq = PriorityQueue()
+    while not arr.empty():
+        x = arr.get()
+        pq.put(x)
+        print(x)
+
+    return pq
     

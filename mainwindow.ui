@@ -359,6 +359,7 @@
     </property>
     <addaction name="action_recorridos"/>
     <addaction name="action_prim"/>
+    <addaction name="action_kruskal"/>
    </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuVer"/>
@@ -411,6 +412,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="action_kruskal">
+   <property name="text">
+    <string>Kruskal</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+K</string>
    </property>
   </action>
  </widget>
