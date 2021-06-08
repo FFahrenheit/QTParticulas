@@ -63,9 +63,6 @@ class MainWindow(QMainWindow):
             destino_y = int(self.ui.destination_y.text())
             destino = (destino_x, destino_y)
 
-            origen = (310,339)
-            destino = (181,339)
-
             grafo = self.cern.to_dict()
 
             if origen not in grafo or destino not in grafo:
@@ -104,6 +101,7 @@ class MainWindow(QMainWindow):
 
             while siguiente != origen:
                 actual = camino[siguiente]
+                
                 self.scene.addLine(actual[0]+3, actual[1]+3, siguiente[0], siguiente[1], pen) 
                 self.scene.addEllipse(actual[0], actual[1], dimension, dimension, pen)
                 self.scene.addEllipse(siguiente[0], siguiente[1], dimension, dimension, pen)
