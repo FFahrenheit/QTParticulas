@@ -70,7 +70,7 @@ class CERN:
         for particula in self.__particulas:
 
             key = ( particula.origen_x, particula.origen_y )
-            weight = round(particula.distancia) if parameter == 'distancia' else particula.velocidad
+            weight = int(particula.distancia) if parameter == 'distancia' else particula.velocidad
             value = ( (particula.destino_x , particula.destino_y ), weight)
 
             if key in grafo:
@@ -79,7 +79,7 @@ class CERN:
                 grafo[key] = [ value ]
 
             key = ( particula.destino_x, particula.destino_y )
-            weight = round(particula.distancia) if parameter == 'distancia' else particula.velocidad
+            weight = int(particula.distancia) if parameter == 'distancia' else particula.velocidad
             value = ( (particula.origen_x, particula.origen_y), weight)
 
             if key in grafo:
@@ -111,3 +111,7 @@ class CERN:
     def kruskal(self):
         dict_grafo = self.to_dict('velocidad')
         return alg.kruskal(dict_grafo)
+
+    def dijkstra(self, origen):
+        return alg.dijkstra(self.grafo, origen)
+        

@@ -360,6 +360,7 @@
     <addaction name="action_recorridos"/>
     <addaction name="action_prim"/>
     <addaction name="action_kruskal"/>
+    <addaction name="action_dijkstra"/>
    </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuVer"/>
@@ -379,7 +380,7 @@
     <string>Guardar</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+D</string>
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="action_grafo">
@@ -420,6 +421,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+K</string>
+   </property>
+  </action>
+  <action name="action_dijkstra">
+   <property name="text">
+    <string>Dijkstra</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>

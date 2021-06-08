@@ -1,5 +1,5 @@
 from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QTableWidgetItem, QGraphicsScene
-from PySide2.QtCore import Slot
+from PySide2.QtCore import SignalInstance, Slot
 from PySide2.QtGui import QPen, QColor
 from ui_mainwindow import Ui_MainWindow
 from lib.cern import CERN
@@ -31,6 +31,7 @@ class MainWindow(QMainWindow):
         self.ui.action_recorridos.triggered.connect(self.mostrar_recorridos)
         self.ui.action_prim.triggered.connect(self.dibujar_prim)
         self.ui.action_kruskal.triggered.connect(self.dibujar_kruskal)
+        self.ui.action_dijkstra.triggered.connect(self.dibujar_dijkstra)
 
         self.ui.mostrar_tabla_pushButton.clicked.connect(self.mostrar_tabla)
         self.ui.buscar_pushButton.clicked.connect(self.buscar_id)
@@ -43,6 +44,72 @@ class MainWindow(QMainWindow):
 
         self.ui.plainTextSort.currentIndexChanged.connect(self.sort_plain)
         self.ui.tableSort.currentIndexChanged.connect(self.sort_plain)
+
+    @Slot()
+    def dibujar_dijkstra(self):
+        self.mostrar()
+        if not self.grafo or len(self.cern) == 0:
+            QMessageBox.critical(
+                self,
+                "No se pudo leer",
+                "Convierta a grafo no vacío antes"
+            )
+        else:
+            origen_x = int(self.ui.origin_x.text())
+            origen_y = int(self.ui.origin_y.text()) 
+            origen = (origen_x, origen_y)
+
+            destino_x = int(self.ui.destination_x.text())
+            destino_y = int(self.ui.destination_y.text())
+            destino = (destino_x, destino_y)
+
+            origen = (310,339)
+            destino = (181,339)
+
+            grafo = self.cern.to_dict()
+
+            if origen not in grafo or destino not in grafo:
+                QMessageBox.information(
+                    self,
+                    "Origen o destino inválidos",
+                    "Escriba un origen y destino válidos en los campos"
+                )
+                return
+            
+            distancias, camino = self.cern.dijkstra(origen)
+
+            print('')
+            formated = pformat(distancias, width=40, indent=1)
+            print(formated)
+            print('')
+            formated = pformat(camino, width=40, indent=1)
+            print(formated)
+            
+            if camino[origen] not in grafo or camino[destino] not in grafo:
+                QMessageBox.critical(
+                self,
+                "Sin camino",
+                "No se encontró el camino"
+                )
+                return
+
+            self.ui.tabWidget.setCurrentIndex(2)
+            self.scene.clear()
+            pen = QPen()
+            pen.setColor(QColor(105, 207, 193))
+            dimension = 5
+            pen.setWidth(dimension)
+
+            siguiente = destino
+
+            while siguiente != origen:
+                actual = camino[siguiente]
+                self.scene.addLine(actual[0]+3, actual[1]+3, siguiente[0], siguiente[1], pen) 
+                self.scene.addEllipse(actual[0], actual[1], dimension, dimension, pen)
+                self.scene.addEllipse(siguiente[0], siguiente[1], dimension, dimension, pen)
+                
+                siguiente = camino[siguiente]
+                
 
     @Slot()
     def dibujar_kruskal(self):

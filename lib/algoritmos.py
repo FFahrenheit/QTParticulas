@@ -1,6 +1,48 @@
 import math 
 from queue import PriorityQueue
 
+"""
+Funciones y clases auxiliares
+"""
+
+infinito = 1e15
+
+def printqueue(arr : PriorityQueue):
+    pq = PriorityQueue()
+    while not arr.empty():
+        x = arr.get()
+        pq.put(x)
+        print(x)
+
+    return pq
+    
+class DisjointSet:
+    def __init__(self):
+        self.elements = []
+
+    def print(self):
+        print(self.elements)
+
+    def make_set(self,element):
+        for elem in self.elements:
+            if element in elem:
+                return False
+        self.elements.append([element])
+        return True
+
+    def find_set(self,element):
+        for index,elem in enumerate(self.elements):
+            if element in elem:
+                return index
+        return -1 
+    
+    def union(self,A,B):
+        index_A = self.find_set(A)
+        index_B = self.find_set(B)
+
+        self.elements[index_A] += self.elements[index_B]
+        self.elements.pop(index_B)
+
 """ Calcula la distancia euclidiana
 
 Devuelve el resultado de la fórmula 
@@ -77,7 +119,12 @@ def recorrido_profundidad(grafo : dict, origen):
     return recorrido
 
 """
-Algoritmo de Prim
+Algoritmo de Prim para obtener el arbol de 
+expansión mínimo a partir de un origen
+
+Parámetros:
+grafo : Grafo del cual obtener el camino
+origen : origen del cual vamos a partir
 """
 def prim(grafo : dict, origen):
     visitados = []
@@ -106,33 +153,13 @@ def prim(grafo : dict, origen):
 
     return arbol_expansion 
 
+"""
+Algoritmo de Kruskal para obtener el arbol de 
+expansión mínimo
 
-class DisjointSet:
-    def __init__(self):
-        self.elements = []
-
-    def print(self):
-        print(self.elements)
-
-    def make_set(self,element):
-        if element not in self.elements:
-            self.elements.append([element])
-
-    def find_set(self,element):
-        for index,elem in enumerate(self.elements):
-            if element in elem:
-                return index
-        
-        return -1 
-    
-    def union(self,A,B):
-        index_A = self.find_set(A)
-        index_B = self.find_set(B)
-
-        self.elements[index_A] += self.elements[index_B]
-        self.elements.pop(index_B)
-
-
+Parámetros:
+grafo : Grafo del cual obtener el camino
+"""
 def kruskal(grafo : dict):
     arbol_expansion = []
     ds = DisjointSet()
@@ -162,12 +189,45 @@ def kruskal(grafo : dict):
 
     return arbol_expansion
 
-def printqueue(arr : PriorityQueue):
-    pq = PriorityQueue()
-    while not arr.empty():
-        x = arr.get()
-        pq.put(x)
-        print(x)
+"""
+Algoritmo de Dijkstra para obtener el camino
+más corto a partir de un grafo
 
-    return pq
-    
+Parámetros:
+grafo : Grafo del cual obtener el camino
+origen : origen del cual vamos a partir
+
+Regresa:
+Arreglo de distancias, Arreglo de camino
+"""
+def dijkstra(grafo : dict, origen):
+    distancias = dict()
+    camino = dict()
+    lista = PriorityQueue()
+
+    for nodo in grafo:
+        if nodo == origen:
+            distancias[nodo] = 0
+            camino[nodo] = origen
+        else:
+            distancias[nodo] = infinito
+            camino[nodo] = ()
+
+    lista.put((0,origen))
+
+    while not lista.empty():
+        elemento = lista.get()
+        nodo = elemento[1]      
+
+        for arista in grafo[nodo]:
+            distancia = arista[1] + elemento[0]     #Distancia al destino + distancia del elemento
+            destino = arista[0]
+
+            if distancia < distancias[destino]:
+                distancias[destino] = distancia
+                camino[destino] = nodo
+                lista.put((distancia, destino))
+
+    return distancias, camino
+
+
